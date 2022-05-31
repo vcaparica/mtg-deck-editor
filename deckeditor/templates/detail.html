@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title> Details for {{ card.name }}</title>
+</head>
+<body>
+<p align="center"><h1>Card Detail</h1></p>
+<p>{{ card.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{card.mana_cost}}<br>
+<img src="{{card.art_crop}}" alt="Art by {{card.artist}}"><br>
+{{ card.type_line }}&nbsp;&nbsp;&nbsp;&nbsp;:{{card.set}}<br>
+{{ card.oracle_text }}<br>
+{{card.flavor_text}}<br>
+{{ card.power }}/{{ card.toughness }}</p>
+<p>Rarity: {{ card.rarity }}; {{ card.set_name }}</p>
+<h6>Projeto de estudo em Django.</h6>
+</body>
+</html>

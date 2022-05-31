@@ -1,0 +1,75 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'liststylesheet.css' %}">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+</head>
+<body>
+<p align="center"><h1>{{ title }}:</h1></p>
+{% if cards %}
+<form action="">
+{% csrf_token %}
+<fieldset>
+<label for 'searchbox'>Card Search: </label><input type="text" id="searchbox" name="searchbox">&nbsp;
+<input type="submit" value="Pesquisar"><br>
+<label for="standard">Standard</label><input type="radio" id="standard" checked="checked" name="format" value="Standard">&nbsp;
+<label for="pioneer">Pioneer</label><input type="radio" id="pioneer" name="format" value="Pioneer">&nbsp;
+<label for="modern">Modern</label><input type="radio" id="modern" name="format" value="Modern">&nbsp;
+<label for="legacy">Legacy</label><input type="radio" id="legacy" name="format" value="Legacy">&nbsp;
+<label for="commander">Commander</label><input type="radio" id="commander" name="format" value="Commander">&nbsp;
+<br>
+</fieldset>
+</form>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+        {% endif %}
+    </span>
+</div>
+<table>
+<tr><th>Card Name</th><th>Cost</th><th>Type</th><th>P/T/L</th><th>Rarity</th></tr>
+{% for card in cards %}
+<tr><td>
+<a href="{% url 'deckeditor:detail' card.id %}">{{card.name}}</a>
+{% if card.back_name %}
+ (<a href="{% url 'deckeditor:detail' card.id|add:"1"%}">{{card.back_name}}</a>)
+{% endif %}
+</td><td>{{card.mana_cost}}</td><td>{{card.type_line}}</td><td>{{card.power}}/{{card.toughness}}</td><td>{{card.rarity}}</td></tr>
+{% endfor %}
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% else %}
+<p align="center">No cards found with given search terms.</p>
+{% endif %}
+<h6>Você visualizou esta página {{ visits }} vezes.</h6>
+</body>
+</html>

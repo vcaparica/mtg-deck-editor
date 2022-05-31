@@ -1,0 +1,7 @@
+body { background: white; }
+p { font-size: 90%; color: darkgray; font-family: Verdana, Helvetica, sans-serif; }
+a:link { color: green; text-decoration:none; }
+a:visited { color: darkgreen; text-decoration:none; }
+a:hover { color: purple; text-decoration:underline; }
+a:active { color: teal; text-decoration:underline; }
+table { border_collapse: collapse; width: 100%; }
